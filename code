@@ -1,0 +1,112 @@
+/*
+C&C experiment 1: pressure
+
+aim: press value up -> number of light led increase
+
+*/
+
+/*Nambe table:
+   INPUT:
+     [press_pin]: FSR input location
+     [press_time]: records the time of pressing moment
+
+   OUTPUT:
+     [led_pin]: location output to led
+     [led_state]: define led on/off
+
+   THERSHOLDS:
+     [press_thershold]: fsr's tigger range
+     [press_value]: FSR read in value
+
+*/
+
+
+//input - press_sensor:
+int press_value = 0;
+int press_pin = A7;
+
+//output - LEDs:
+int led1_pin = 12;
+int led2_pin = 11;
+int led3_pin = 10;
+int led4_pin = 0;
+int led5_pin = 1;
+int led6_pin = 5;
+int led7_pin = 2;
+
+//initial led state
+bool led1_state = false;
+bool led2_state = false;
+bool led3_state = false;
+bool led4_state = false;
+bool led5_state = false;
+bool led6_state = false;
+bool led7_state = false;
+
+
+
+void setup() {
+
+  // initialize serial connection
+  Serial.begin(9600);
+ 
+  // set led pins as output
+  pinMode(led1_pin, OUTPUT);
+  pinMode(led2_pin, OUTPUT);
+  pinMode(led3_pin, OUTPUT);
+  pinMode(led4_pin, OUTPUT);
+  pinMode(led5_pin, OUTPUT);
+  pinMode(led6_pin, OUTPUT);
+  pinMode(led7_pin, OUTPUT);
+
+}
+
+void loop() {
+ // read sensor
+ press_value = analogRead(press_pin);
+
+ // loop the initial state of leds
+ led1_state = led2_state = led3_state = led4_state = led5_state = led6_state = led7_state = false;
+
+ Serial.print("press value: ");
+ Serial.println(press_value);
+
+ //on leds
+   if (press_value >= 150) led1_state = true;
+   if (press_value >= 200) led2_state = true;
+   if (press_value >= 250) led3_state = true;
+   if (press_value >= 300) led4_state = true;
+   if (press_value >= 350) led5_state = true;
+   if (press_value >= 400) led6_state = true;
+   if (press_value >= 450) led7_state = true;
+
+ // apply state to pins
+  digitalWrite(led1_pin, led1_state);
+  digitalWrite(led2_pin, led2_state);
+  digitalWrite(led3_pin, led3_state);
+  digitalWrite(led4_pin, led4_state);
+  digitalWrite(led5_pin, led5_state);
+  digitalWrite(led6_pin, led6_state);
+  digitalWrite(led7_pin, led7_state);
+
+ delay(100);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
